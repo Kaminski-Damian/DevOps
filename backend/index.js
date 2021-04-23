@@ -14,23 +14,23 @@ app.use(express.json());
 app.use(cors());
 
 pgClient
-    .query(
-        `CREATE TABLE IF NOT EXISTS fruit (
-            id serial PRIMARY KEY,
-            name VARCHAR ( 50 ) UNIQUE NOT NULL,
-            amount INT DEFAULT 0
-        )`
-    )
-    .catch((err) => console.log(err));
+  .query(
+    `CREATE TABLE IF NOT EXISTS fruit (
+			id serial PRIMARY KEY,
+			name VARCHAR (50) UNIQUE NOT NULL,
+			amount INT DEFAULT 0
+		)`
+  )
+  .catch((err) => console.error(err));
 
 app.get('/', (req, res) => {
-    res.send('Hello Fruit!');
+  res.send('Hello Fruit!');
 });
 
 app.use('/fruit', fruitRoutes);
 
 app.listen(process.env.PORT, () => {
-    console.log(
-        `[+] Server running in ${process.env.NODE_ENV} mode one port ${process.env.PORT}`
-    );
+  console.log(
+    `[+] Server running in ${process.env.NODE_ENV} mode one port ${process.env.PORT}`
+  );
 });
