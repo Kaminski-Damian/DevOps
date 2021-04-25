@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import API from '../../api';
 
 const FruitList = (props) => {
   const [fruit, setFruit] = useState([]);
@@ -7,8 +7,7 @@ const FruitList = (props) => {
 
   useEffect(() => {
     if (props.fetchMode) {
-      axios
-        .get('http://localhost:5000/fruit')
+      API.get('fruit')
         .then((res) => {
           const { data, success } = res.data;
           if (success) {
@@ -22,8 +21,7 @@ const FruitList = (props) => {
   }, [props.fetchMode]);
 
   const onDelete = (id) => {
-    axios
-      .delete(`http://localhost:5000/fruit/${id}`)
+    API.delete(`fruit/${id}`)
       .then((res) => {
         if (res.data.success) {
           props.setFetchMode(true);

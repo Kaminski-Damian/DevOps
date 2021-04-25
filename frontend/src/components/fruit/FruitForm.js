@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import API from '../../api';
 
 const FruitForm = (props) => {
   const [id, setId] = useState();
@@ -13,8 +13,7 @@ const FruitForm = (props) => {
       setEditMode(true);
       setSuccess(false);
 
-      axios
-        .get(`http://localhost:5000/fruit/${props.editId}`)
+      API.get(`fruit/${props.editId}`)
         .then((res) => {
           const { data, success } = res.data;
           if (success) {
@@ -60,8 +59,7 @@ const FruitForm = (props) => {
   };
 
   const createFruit = () => {
-    axios
-      .post('http://localhost:5000/fruit', { name, amount })
+    API.post('fruit', { name, amount })
       .then((res) => {
         if (res.data.success) {
           setSuccess(true);
@@ -74,8 +72,7 @@ const FruitForm = (props) => {
   };
 
   const editFruit = () => {
-    axios
-      .put('http://localhost:5000/fruit', { id, name, amount })
+    API.put('fruit', { id, name, amount })
       .then((res) => {
         if (res.data.success) {
           setSuccess(true);
