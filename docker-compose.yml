@@ -29,8 +29,8 @@ services:
       dockerfile: Dockerfile.dev
       context: ./frontend
     volumes:
-      - /opt/app/node_modules
-      - ./frontend:/opt/app
+      - /opt/myapp/node_modules
+      - ./frontend:/opt/myapp
 
   mynginx:
     restart: always
