@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-nginx-pod
+  name: task2-nginx-pod
   labels:
     component: web
+    app: task2
 
 spec:
   containers:
-    - name: my-nginx
-      image: nginx:alpine
+    - name: task2-nginx-container
+      image: dkaminski/devops-k8s-task2:latest
       ports:
         - containerPort: 80

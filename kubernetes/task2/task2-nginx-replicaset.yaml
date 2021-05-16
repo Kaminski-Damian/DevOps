@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: task2-nginx-replicaset
+  labels:
+    component: web
+    app: task2
+
+spec:
+  template:
+    metadata:
+      name: task2-nginx-pod
+      labels:
+        component: web
+        app: task2
+    spec:
+      containers:
+        - name: task2-nginx-container
+          image: dkaminski/devops-k8s-task2:latest
+  replicas: 4
+  selector:
+    matchLabels:
+      component: web
+      app: task2
