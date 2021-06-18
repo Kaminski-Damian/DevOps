@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-postgres-deployment
+  labels:
+    app: my-postgres
+    component: db
+
+spec:
+  template:
+    metadata:
+      name: my-postgres-pod
+      labels:
+        app: my-postgres
+        component: db
+    spec:
+      containers:
+        - name: my-postgres-container
+          image: postgres:alpine
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresvolume
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-postgres-configmap
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: my-postgres-configmap
+                  key: POSTGRES_DATABASE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: my-postgres-secret
+                  key: POSTGRES_PASSWORD
+      volumes:
+        - name: postgresvolume
+          persistentVolumeClaim:
+            claimName: my-postgres-pvc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-postgres
+      component: db
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: my-postgres-deployment
+#   labels:
+#     app: my-postgres
+#     type: db
+
+# spec:
+#   template:
+#     metadata:
+#       name: my-postgres-pod
+#       labels:
+#         app: my-postgres
+#         type: db
+#     spec:
+#       containers:
+#         - name: my-postgres-container
+#           image: postgres:alpine
+#           ports:
+#             - containerPort: 5432
+#           volumeMounts:
+#             - mountPath: /var/lib/postgresql/data
+#               name: postgresvolume
+#           env:
+#             - name: POSTGRES_USER
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: my-postgres-configmap
+#                   key: POSTGRES_USER
+#             - name: POSTGRES_DB
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: my-postgres-configmap
+#                   key: POSTGRES_DATABASE
+#             - name: POSTGRES_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: my-postgres-secret
+#                   key: POSTGRES_PASSWORD
+#       volumes:
+#         - name: postgresvolume
+#           persistentVolumeClaim:
+#             claimName: my-postgres-pvc
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: my-postgres
+#       type: db

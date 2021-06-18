@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-postgres-cluster-ip-service
+
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: my-postgres
+    component: db
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: my-postgres-cluster-ip-service
+
+# spec:
+#   type: ClusterIP
+#   ports:
+#     - port: 5432
+#       targetPort: 5432
+#   selector:
+#     component: db
+#     app: my-postgres

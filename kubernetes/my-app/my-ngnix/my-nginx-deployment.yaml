@@ -3,22 +3,22 @@ kind: Deployment
 metadata:
   name: my-nginx-deployment
   labels:
+    app: my-nginx
     component: web
-    app: my-app
 
 spec:
   template:
     metadata:
       name: my-nginx-pod
       labels:
+        app: my-nginx
         component: web
-        app: my-app
     spec:
       containers:
         - name: my-nginx-container
           image: nginx:alpine
-  replicas: 8
+  replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: my-nginx
       component: web

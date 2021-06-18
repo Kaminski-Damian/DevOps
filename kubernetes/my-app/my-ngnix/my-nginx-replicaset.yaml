@@ -3,22 +3,22 @@ kind: ReplicaSet
 metadata:
   name: my-nginx-replicaset
   labels:
+    app: my-nginx
     component: web
-    app: my-app
 
 spec:
   template:
     metadata:
       name: my-nginx-pod
       labels:
+        app: my-nginx
         component: web
-        app: my-app
     spec:
       containers:
         - name: my-nginx-container
           image: nginx:alpine
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
+      app: my-nginx
       component: web
-      app: my-app

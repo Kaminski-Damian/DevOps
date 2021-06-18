@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-backend-lb-clusterip
+  name: my-backend-node-port-service
 
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 5000
       targetPort: 5000
+      nodePort: 31100
   selector:
-    component: backend
     app: my-backend
+    component: backend

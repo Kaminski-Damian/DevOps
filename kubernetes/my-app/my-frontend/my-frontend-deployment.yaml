@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-frontend-deployment
+  labels:
+    app: my-frontend
+    component: frontend
+
+spec:
+  template:
+    metadata:
+      name: my-frontend-pod
+      labels:
+        app: my-frontend
+        component: frontend
+    spec:
+      containers:
+        - name: my-frontend-container
+          image: dkaminski/devops-frontend:latest
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-frontend
+      component: frontend
